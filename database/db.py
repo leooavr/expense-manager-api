@@ -10,7 +10,7 @@ username = os.getenv('DB_USERNAME')
 password = os.getenv("DB_PASSWORD")
 database = os.getenv("DB_NAME")
 
-DATABASE_URL = f"postgresql://{username}:{password}@localhost/{database}"
+DATABASE_URL = f"postgresql://{username}:{password}@db-container:5432/{database}"
 
 engine = create_engine(DATABASE_URL)
 Base = declarative_base()
