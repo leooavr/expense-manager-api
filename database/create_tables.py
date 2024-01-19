@@ -3,6 +3,7 @@ from models.user import User
 from models.expense import Expense
 from models.debt import Debt
 from models.installment import Installment
+from models.debt_collector import DebtCollector
 import models
 
 def create_all_tables():

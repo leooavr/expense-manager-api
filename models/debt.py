@@ -14,4 +14,6 @@ class Debt(Base):
     user_id = Column(Integer, ForeignKey("users.id"))
     user = relationship("User", back_populates="debt")
     installment = relationship("Installment", back_populates="debt")
+    debt_collector_id = Column(Integer, ForeignKey("debt_collectors.id"))
+    debt_collector = relationship("DebtCollector", back_populates="debt_collectors")
     
