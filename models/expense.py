@@ -10,7 +10,8 @@ class Expense(Base):
     value =  Column(Integer, index=True)
     pay_date = Column(Date, index=True)
     entity = Column(String, index=True)
-    paid = Column(Boolean, index=True)
+    is_paid = Column(Boolean, index=True)
+    category = Column(String, index=True)
     user_id = Column(Integer, ForeignKey("users.id"))
     user = relationship("User", back_populates="expense")
     

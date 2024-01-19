@@ -9,7 +9,7 @@ class Installment(Base):
     number = Column(Integer, index=True)
     value =  Column(Integer, index=True)
     pay_date = Column(Date, index=True)
-    paid = Column(Boolean, index=True)
+    is_paid = Column(Boolean, index=True)
     
     debt_id = Column(Integer, ForeignKey("debts.id"))
     debt = relationship("Debt", back_populates="installment")
