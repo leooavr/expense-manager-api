@@ -1,9 +1,8 @@
 from database.db import Base, engine
-from models.user import User
-from models.expense import Expense
-from models.debt import Debt
-from models.installment import Installment
+from models import Debt, Installment, DebtCollector, Expense, User
+
 import models
+
 
 def create_all_tables():
     Base.metadata.create_all(bind=engine)
