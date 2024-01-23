@@ -11,6 +11,10 @@ class DebtCollectorCreate(DebtCollectorBase):
     pass
 
 
+class DebtCollectorUpdate(DebtCollectorBase):
+    pass
+
+
 class DebtCollector(DebtCollectorBase):
     id: int
 
