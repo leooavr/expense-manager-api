@@ -14,13 +14,13 @@ from database.crud.user import (
 user = APIRouter()
 
 
-@user.get("/users/", response_model=list[User], tags=["users"])
+@user.get("/users/", response_model=list[User], tags=["Users"])
 def get_users(db: Session = Depends(get_db)):
     users = get_all_users(db)
     return users
 
 
-@user.get("/users/{id}", response_model=User, tags=["users"])
+@user.get("/users/{id}", response_model=User, tags=["Users"])
 def get_user_by_id(id: int, db: Session = Depends(get_db)):
     user = get_user(db, id)
     if user is None:
@@ -28,7 +28,7 @@ def get_user_by_id(id: int, db: Session = Depends(get_db)):
     return user
 
 
-@user.post("/users/", response_model=User, tags=["users"])
+@user.post("/users/", response_model=User, tags=["Users"])
 def post_user(user: UserCreate, db: Session = Depends(get_db)):
     new_user = get_user_by_email(db, user.email)
     if new_user:
@@ -36,7 +36,7 @@ def post_user(user: UserCreate, db: Session = Depends(get_db)):
     return create_new_user(db, user)
 
 
-@user.put("/users/{id}", response_model=User, tags=["users"])
+@user.put("/users/{id}", response_model=User, tags=["Users"])
 def update_user(id: int, user: UserUpdate, db: Session = Depends(get_db)):
     is_updated = update_user_by_id(db, user, id)
     if not is_updated:
@@ -44,7 +44,7 @@ def update_user(id: int, user: UserUpdate, db: Session = Depends(get_db)):
     return is_updated
 
 
-@user.delete("/users/{id}", tags=["users"])
+@user.delete("/users/{id}", tags=["Users"])
 def delete_user(id: int, db: Session = Depends(get_db)):
     is_deleted = delete_user_by_id(db, id)
     if not is_deleted:

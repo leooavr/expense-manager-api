@@ -1,9 +1,5 @@
 from database.db import Base, engine
-from models.user import User
-from models.debt_collector import DebtCollector
-from models.expense import Expense
-from models.debt import Debt
-from models.installment import Installment
+from models import Debt, Installment, DebtCollector, Expense, User
 
 import models
 

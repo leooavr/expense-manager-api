@@ -22,7 +22,7 @@ def create_new_expense(db: Session, user_id: int, expense: ExpenseCreate):
         pay_date=expense.pay_date,
         entity=expense.entity,
         is_paid=False,
-        category=expense.category, 
+        category=expense.category,
         user_id=user.id,
     )
     db.add(new_expense)
