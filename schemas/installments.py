@@ -7,7 +7,7 @@ class InstallmentBase(BaseModel):
     number: int
     value: int
     pay_date: Optional[datetime.date]
-    paid: bool 
+    is_paid: bool 
     
 
 class InstallmentCreate(InstallmentBase):

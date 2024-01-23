@@ -5,7 +5,7 @@ class DebtBase(BaseModel):
     name: str
     value: int
     entity: str
-    paid: bool    
+    is_paid: bool    
 
 class DebtCreate(DebtBase):
     pass

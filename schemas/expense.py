@@ -8,7 +8,8 @@ class ExpenseBase(BaseModel):
     value: int
     pay_date: Optional[datetime.date]
     entity: str
-    paid: bool
+    is_paid: bool
+    category: str
 
 
 class ExpenseCreate(ExpenseBase):

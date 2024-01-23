@@ -10,6 +10,8 @@ class User(Base):
     password = Column(String)
     email = Column(String, unique=True)
     address = Column(String)
+    first_name = Column(String)
+    last_name = Column(String)
     
     expense = relationship("Expense", back_populates="user")
     debt = relationship("Debt", back_populates="user")

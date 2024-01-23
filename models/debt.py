@@ -9,9 +9,11 @@ class Debt(Base):
     name = Column(String, index=True)
     value =  Column(Integer, index=True)
     entity = Column(String, index=True)
-    paid = Column(Boolean, index=True)
+    is_paid = Column(Boolean, index=True)
     
     user_id = Column(Integer, ForeignKey("users.id"))
     user = relationship("User", back_populates="debt")
     installment = relationship("Installment", back_populates="debt")
+    debt_collector_id = Column(Integer, ForeignKey("debt_collectors.id"))
+    debt_collector = relationship("DebtCollector", back_populates="debt_collectors")
     
