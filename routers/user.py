@@ -8,7 +8,8 @@ from database.crud.user import (
     create_new_user,
     get_user_by_email,
     delete_user_by_id,
-    update_user_by_id)
+    update_user_by_id,
+)
 
 user = APIRouter()
 
@@ -27,7 +28,7 @@ def get_user_by_id(id: int, db: Session = Depends(get_db)):
     return user
 
 
-@user.post("/users/", response_model=User, tags=['users'])
+@user.post("/users/", response_model=User, tags=["users"])
 def post_user(user: UserCreate, db: Session = Depends(get_db)):
     new_user = get_user_by_email(db, user.email)
     if new_user:
@@ -35,9 +36,9 @@ def post_user(user: UserCreate, db: Session = Depends(get_db)):
     return create_new_user(db, user)
 
 
-@user.put("/users/{id}", response_model=User, tags=['users'])
+@user.put("/users/{id}", response_model=User, tags=["users"])
 def update_user(id: int, user: UserUpdate, db: Session = Depends(get_db)):
-    is_updated =update_user_by_id(db,user,id)
+    is_updated = update_user_by_id(db, user, id)
     if not is_updated:
         raise HTTPException(status_code=404, detail="User not found")
     return is_updated

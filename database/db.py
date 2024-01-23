@@ -6,7 +6,7 @@ from dotenv import load_dotenv
 # Carga las variables de entorno desde el archivo .env
 load_dotenv()
 
-username = os.getenv('DB_USERNAME')
+username = os.getenv("DB_USERNAME")
 password = os.getenv("DB_PASSWORD")
 database = os.getenv("DB_NAME")
 

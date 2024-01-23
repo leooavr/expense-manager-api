@@ -2,20 +2,17 @@ from pydantic import BaseModel
 from schemas.installments import Installment
 
 
-class DebtBase(BaseModel):
+class DebtCollectorBase(BaseModel):
     name: str
-    value: int
-    entity: str
-    is_paid: bool
+    category: str
 
 
-class DebtCreate(DebtBase):
+class DebtCollectorCreate(DebtCollectorBase):
     pass
 
 
-class Debt(DebtBase):
+class DebtCollector(DebtCollectorBase):
     id: int
-    id_user: int
 
     class Config:
         from_attributes = True
