@@ -1,5 +1,5 @@
 from pydantic import BaseModel
-from schemas.installments import Installment
+from schemas.installment import Installment
 
 
 class DebtBase(BaseModel):
@@ -7,15 +7,20 @@ class DebtBase(BaseModel):
     value: int
     entity: str
     is_paid: bool
+    user_id: int
+    debt_collector_id: int
 
 
 class DebtCreate(DebtBase):
     pass
 
 
+class DebtUpdate(DebtBase):
+    pass
+
+
 class Debt(DebtBase):
     id: int
-    id_user: int
 
     class Config:
         from_attributes = True
