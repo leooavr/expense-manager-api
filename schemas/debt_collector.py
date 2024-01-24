@@ -1,5 +1,5 @@
 from pydantic import BaseModel
-from schemas.installments import Installment
+from schemas.installment import Installment
 
 
 class DebtCollectorBase(BaseModel):

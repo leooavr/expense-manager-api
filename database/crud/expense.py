@@ -1,5 +1,5 @@
 from sqlalchemy.orm import Session
-from models.expense import Expense
+from models import Expense
 from schemas.expense import ExpenseCreate, ExpenseUpdate
 from database.crud.user import get_user
 

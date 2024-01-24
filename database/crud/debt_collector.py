@@ -1,5 +1,5 @@
 from sqlalchemy.orm import Session
-from models.debt_collector import DebtCollector
+from models import DebtCollector
 from schemas.debt_collector import DebtCollectorCreate, DebtCollectorUpdate
 
 
