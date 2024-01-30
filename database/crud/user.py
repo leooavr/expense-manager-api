@@ -21,10 +21,10 @@ def get_all_users(db: Session):
 
 
 def create_new_user(db: Session, user: UserCreate):
-    new_password = user.password
+    hash_password = User.get_password_hash(user.password)
     new_user = User(
         username=user.username,
-        password=new_password,
+        password=hash_password,
         email=user.email,
         address=user.address,
         first_name=user.first_name,

@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 import uvicorn
-from routers import debt_collector, expense, user, debt, installment
+from routers import debt_collector, expense, user, debt, installment, auth
 from database.create_tables import create_all_tables
 
 app = FastAPI()
@@ -9,6 +9,7 @@ app.include_router(expense)
 app.include_router(debt_collector)
 app.include_router(debt)
 app.include_router(installment)
+app.include_router(auth)
 
 
 @app.get("/create_tables")
@@ -23,4 +24,4 @@ def root():
 
 
 if __name__ == "__main__":
-    uvicorn.run("main:app", port=8000, reload=True)
+    uvicorn.run("main:app --reload", port=8000, reload=True)
