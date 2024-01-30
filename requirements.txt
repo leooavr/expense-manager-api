@@ -8,3 +8,5 @@ passlib
 pyjwt
 loguru
 cryptography
+secure-smtplib
+jinja2
