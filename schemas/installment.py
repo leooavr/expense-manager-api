@@ -14,13 +14,13 @@ class InstallmentBase(BaseModel):
 class InstallmentCreate(InstallmentBase):
     pass
 
+
 class InstallmentUpdate(InstallmentBase):
     pass
 
 
 class Installment(InstallmentBase):
     id: int
-    
 
     class Config:
         from_attributes = True

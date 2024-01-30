@@ -6,22 +6,17 @@ from schemas.debt_collector import (
     DebtCollectorCreate,
     DebtCollectorUpdate,
 )
-from database.crud.debt_collector import (
-    get_debt_collector,
-    get_all_debt_collector,
-    create_new_debt_collector,
-    update_debt_collector_by_id,
-    delete_debt_collector_by_id,
-)
+from services.DebtCollector.debt_collector_services import DebtCollectorService
 
 debt_collector = APIRouter()
+debt_collector_service = DebtCollectorService()
 
 
 @debt_collector.get(
     "/debtCollectors/", response_model=list[DebtCollector], tags=["DebtCollectors"]
 )
 def get_debt_collector(db: Session = Depends(get_db)):
-    debt_collectors = get_all_debt_collector(db)
+    debt_collectors = debt_collector_service.get_all_debt_collector(db)
     return debt_collectors
 
 
@@ -29,7 +24,7 @@ def get_debt_collector(db: Session = Depends(get_db)):
     "/debtCollectors/{id}", response_model=DebtCollector, tags=["DebtCollectors"]
 )
 def get_debt_collector_by_id(id: int, db: Session = Depends(get_db)):
-    debt_collector = get_debt_collector(db, id)
+    debt_collector = debt_collector_service.get_debt_collector(db, id)
     if debt_collector is None:
         raise HTTPException(status_code=404, detail="Debt collector not found")
     return debt_collector
@@ -41,7 +36,7 @@ def get_debt_collector_by_id(id: int, db: Session = Depends(get_db)):
 def post_debt_collector(
     debt_collector: DebtCollectorCreate, db: Session = Depends(get_db)
 ):
-    return create_new_debt_collector(db, debt_collector)
+    return debt_collector_service.create_new_debt_collector(db, debt_collector)
 
 
 @debt_collector.put(
@@ -50,7 +45,9 @@ def post_debt_collector(
 def update_debt_collector(
     id: int, debt_collector: DebtCollectorUpdate, db: Session = Depends(get_db)
 ):
-    is_updated = update_debt_collector_by_id(db, debt_collector, id)
+    is_updated = debt_collector_service.update_debt_collector_by_id(
+        db, debt_collector, id
+    )
     if not is_updated:
         raise HTTPException(status_code=404, detail="Debt collector not found")
     return is_updated
@@ -58,7 +55,7 @@ def update_debt_collector(
 
 @debt_collector.delete("/debtCollectors/{id}", tags=["DebtCollectors"])
 def delete_debt_collector(id: int, db: Session = Depends(get_db)):
-    is_deleted = delete_debt_collector_by_id(db, id)
+    is_deleted = debt_collector_service.delete_debt_collector_by_id(db, id)
     if not is_deleted:
         raise HTTPException(status_code=404, detail="Debt collector not found")
     return is_deleted

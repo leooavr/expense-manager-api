@@ -6,6 +6,7 @@ from schemas import Login
 
 auth = APIRouter()
 
+
 @auth.post("/login")
 async def login(login_model: Login, db: Session = Depends(get_db)):
     user = db.query(User).filter(User.username == login_model.username).first()
