@@ -6,26 +6,23 @@ from schemas.installment import (
     InstallmentCreate,
     InstallmentUpdate,
 )
-from database.crud.installment import (
-    get_installment,
-    get_all_installment,
-    create_new_installment,
-    update_installment_by_id,
-    delete_installment_by_id,
-)
+from services.Installment.installment_services import InstallmentService
 
 installment = APIRouter()
+installmet_service = InstallmentService()
 
 
-@installment.get("/installment/", response_model=list[Installment], tags=["Installments"])
+@installment.get(
+    "/installment/", response_model=list[Installment], tags=["Installments"]
+)
 def get_installments(db: Session = Depends(get_db)):
-    installments = get_all_installment(db)
+    installments = installmet_service.get_all_installment(db)
     return installments
 
 
 @installment.get("/installment/{id}", response_model=Installment, tags=["Installments"])
 def get_installment_by_id(id: int, db: Session = Depends(get_db)):
-    installment = get_installment(db, id)
+    installment = installmet_service.get_installment(db, id)
     if installment is None:
         raise HTTPException(status_code=404, detail="Installment not found")
     return installment
@@ -33,12 +30,14 @@ def get_installment_by_id(id: int, db: Session = Depends(get_db)):
 
 @installment.post("/installment/", response_model=Installment, tags=["Installments"])
 def post_installment(installment: InstallmentCreate, db: Session = Depends(get_db)):
-    return create_new_installment(db, debt)
+    return installmet_service.create_new_installment(db, installment)
 
 
 @installment.put("/installment/{id}", response_model=Installment, tags=["Installments"])
-def update_installment(id: int, installment: InstallmentUpdate, db: Session = Depends(get_db)):
-    is_updated = update_installment_by_id(db, installment, id)
+def update_installment(
+    id: int, installment: InstallmentUpdate, db: Session = Depends(get_db)
+):
+    is_updated = installmet_service.update_installment_by_id(db, installment, id)
     if not is_updated:
         raise HTTPException(status_code=404, detail="Installment not found")
     return is_updated
@@ -46,7 +45,7 @@ def update_installment(id: int, installment: InstallmentUpdate, db: Session = De
 
 @installment.delete("/installment/{id}", tags=["Installments"])
 def delete_installment(id: int, db: Session = Depends(get_db)):
-    is_deleted = delete_installment_by_id(db, id)
+    is_deleted = installmet_service.delete_installment_by_id(db, id)
     if not is_deleted:
         raise HTTPException(status_code=404, detail="Installment not found")
     return is_deleted

@@ -5,6 +5,7 @@ from passlib.context import CryptContext
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
+
 class User(Base):
     __tablename__ = "users"
 
@@ -22,5 +23,5 @@ class User(Base):
     def verify_password(self, plain_password):
         return pwd_context.verify(plain_password, self.password)
 
-    def get_password_hash(password:str)-> str:
+    def get_password_hash(password: str) -> str:
         return pwd_context.hash(password)
