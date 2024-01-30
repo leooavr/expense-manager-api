@@ -5,3 +5,8 @@ psycopg2-binary
 SQLAlchemy
 databases
 passlib
+pyjwt
+loguru
+cryptography
+secure-smtplib
+jinja2
