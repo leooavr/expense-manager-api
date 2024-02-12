@@ -25,6 +25,7 @@ class AuthService:
         # self.otp_service = otp_service if otp_service is not None else OtpService()
         
     def login(self,login_model: Login, db:Session):
+        logger.info("LOGIN STARTING")
         user = self.user_service.get_user_by_username(db,login_model.username)
         if not user or not user.verify_password(login_model.password):
             return False
@@ -45,6 +46,7 @@ class AuthService:
         return jwt_token
     
     def password_recovery(self, password_recovery: PasswordRecovery, db:Session):
+        logger.info(f"GENERATING PASSWORD RECOVERY")
         user = self.user_service.get_user_by_email(db,password_recovery.email)
         if user is None:
             return False
