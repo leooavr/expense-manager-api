@@ -5,6 +5,7 @@ from models.expense import Expense
 from database.db import get_db
 from schemas.expense import ExpenseCreate, ExpenseUpdate
 from services.User.user_services import UserService
+from uuid import UUID
 
 
 class ExpenseService:
@@ -13,7 +14,7 @@ class ExpenseService:
     def __init__(self, db: Session = Depends(get_db)):
         self.db = db
 
-    def get_expense_by_id(self, db: Session, expense_id: int):
+    def get_expense_by_id(self, db: Session, expense_id: UUID):
         expense = db.query(Expense).filter(Expense.id == expense_id).first()
         print(type(expense))
         return expense
@@ -21,7 +22,7 @@ class ExpenseService:
     def get_all_expenses(self, db: Session):
         return db.query(Expense).all()
 
-    def create_new_expense(self, db: Session, user_id: int, expense: ExpenseCreate):
+    def create_new_expense(self, db: Session, user_id: UUID, expense: ExpenseCreate):
         try:
             user = self.user_service.get_user(db, user_id)
             new_expense = Expense(
@@ -41,7 +42,7 @@ class ExpenseService:
             db.rollback()
             return None
 
-    def update_expense_by_id(db: Session, expense_update: ExpenseUpdate, id: int):
+    def update_expense_by_id(db: Session, expense_update: ExpenseUpdate, id: UUID):
         expense = get_expense_by_id(db, id)
         if expense:
             for attribute, value in expense_update.dict().items():
@@ -52,7 +53,7 @@ class ExpenseService:
         else:
             return False
 
-    def delete_expense_by_id(db: Session, id: int):
+    def delete_expense_by_id(db: Session, id: UUID):
         expense = get_expense_by_id(db, id)
         if expense:
             db.delete(expense)

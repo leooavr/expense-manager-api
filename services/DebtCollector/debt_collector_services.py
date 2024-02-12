@@ -4,13 +4,14 @@ from sqlalchemy.exc import IntegrityError
 from models.debt_collector import DebtCollector
 from database.db import get_db
 from schemas.debt_collector import DebtCollectorCreate, DebtCollectorUpdate
+from uuid import UUID
 
 
 class DebtCollectorService:
     def __init__(self, db: Session = Depends(get_db)):
         self.db = db
 
-    def get_debt_collector(self, db: Session, debt_collector_id: int):
+    def get_debt_collector(self, db: Session, debt_collector_id: UUID):
         debt_collector = (
             db.query(DebtCollector)
             .filter(DebtCollector.id == debt_collector_id)
@@ -37,7 +38,7 @@ class DebtCollectorService:
             return None
 
     def update_debt_collector_by_id(
-        self, db: Session, debt_collector_update: DebtCollectorUpdate, id: int
+        self, db: Session, debt_collector_update: DebtCollectorUpdate, id: UUID
     ):
         debt_collector = self.get_debt_collector(db, id)
         if debt_collector:
@@ -49,7 +50,7 @@ class DebtCollectorService:
         else:
             return False
 
-    def delete_debt_collector_by_id(self, db: Session, id: int):
+    def delete_debt_collector_by_id(self, db: Session, id: UUID):
         debt_collector = self.get_debt_collector(db, id)
         if debt_collector:
             db.delete(debt_collector)

@@ -7,5 +7,6 @@ class Login(BaseModel):
     username: str
     password: str
 
+
 class PasswordRecovery(BaseModel):
-    email:str
+    email: str

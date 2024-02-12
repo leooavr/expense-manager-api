@@ -5,4 +5,4 @@ from .installment import Installment
 from .debt import Debt
 from .auth import Login
 from .auth import PasswordRecovery
-from .email import  EmailModel
+from .email import EmailModel

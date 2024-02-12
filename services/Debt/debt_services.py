@@ -4,13 +4,14 @@ from sqlalchemy.exc import IntegrityError
 from models.debt import Debt
 from database.db import get_db
 from schemas.debt import DebtCreate, DebtUpdate
+from uuid import UUID
 
 
 class DebtService:
     def __init__(self, db: Session = Depends(get_db)):
         self.db = db
 
-    def get_debt(self, db: Session, debt_id: int):
+    def get_debt(self, db: Session, debt_id: UUID):
         debt = db.query(Debt).filter(Debt.id == debt_id).first()
         return debt
 
@@ -35,7 +36,7 @@ class DebtService:
             db.rollback()
             return None
 
-    def update_debt_by_id(self, db: Session, debt_update: DebtUpdate, id: int):
+    def update_debt_by_id(self, db: Session, debt_update: DebtUpdate, id: UUID):
         debt = self.get_debt(db, id)
         if debt:
             for attribute, value in debt_update.dict().items():
@@ -46,7 +47,7 @@ class DebtService:
         else:
             return False
 
-    def delete_debt_by_id(self, db: Session, id: int):
+    def delete_debt_by_id(self, db: Session, id: UUID):
         debt = self.get_debt(db, id)
         if debt:
             db.delete(debt)

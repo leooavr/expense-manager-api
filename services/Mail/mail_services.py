@@ -6,11 +6,11 @@ from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 from schemas.user import UserCreate
 
+
 class MailService:
-    
-    def send_password_by_email(self,user: UserCreate):
+    def send_password_by_email(self, user: UserCreate):
         reset_token = "FakeToken"
-        
+
         # Cargar el template HTML
         env = Environment(
             loader=FileSystemLoader("templates"),
@@ -22,7 +22,7 @@ class MailService:
         email_content = template.render(
             reset_link=f"http://example.com/reset?token={reset_token}"
         )
-        
+
         sender_email = "pprobado80@gmail.com"
         sender_password = "czzu eodb dspn vawb"
         # Crear el mensaje
