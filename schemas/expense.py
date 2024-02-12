@@ -1,4 +1,4 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, UUID4
 from typing import Optional
 import datetime
 
@@ -21,8 +21,8 @@ class ExpenseUpdate(ExpenseCreate):
 
 
 class Expense(ExpenseBase):
-    id: int
-    user_id: int
+    id: UUID4
+    user_id: UUID4
 
     class Config:
         from_attributes = True

@@ -4,13 +4,14 @@ from sqlalchemy.exc import IntegrityError
 from models.user import User
 from database.db import get_db
 from schemas.user import UserCreate, UserUpdate
+from uuid import UUID
 
 
 class UserService:
     def __init__(self, db: Session = Depends(get_db)):
         self.db = db
 
-    def get_user(self, db: Session, user_id: int):
+    def get_user(self, db: Session, user_id: UUID):
         user = db.query(User).filter(User.id == user_id).first()
         return user
 
@@ -42,7 +43,7 @@ class UserService:
             db.rollback()
             return None
 
-    def update_user_by_id(self, db: Session, user_update: UserUpdate, id: int):
+    def update_user_by_id(self, db: Session, user_update: UserUpdate, id: UUID):
         user = self.get_user(db, id)
         if user:
             for attribute, value in user_update.dict().items():
@@ -53,7 +54,7 @@ class UserService:
         else:
             return False
 
-    def delete_user_by_id(self, db: Session, id: int):
+    def delete_user_by_id(self, db: Session, id: UUID):
         user = self.get_user(db, id)
         if user:
             db.delete(user)

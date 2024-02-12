@@ -4,13 +4,14 @@ from sqlalchemy.exc import IntegrityError
 from models.installment import Installment
 from database.db import get_db
 from schemas.installment import InstallmentCreate, InstallmentUpdate
+from uuid import UUID
 
 
 class InstallmentService:
     def __init__(self, db: Session = Depends(get_db)):
         self.db = db
 
-    def get_installment(self, db: Session, installment_id: int):
+    def get_installment(self, db: Session, installment_id: UUID):
         installment = (
             db.query(Installment).filter(Installment.id == installment_id).first()
         )
@@ -38,7 +39,7 @@ class InstallmentService:
             return None
 
     def update_installment_by_id(
-        self, db: Session, installment_update: InstallmentUpdate, id: int
+        self, db: Session, installment_update: InstallmentUpdate, id: UUID
     ):
         installment = self.get_installment(db, id)
         if installment:
@@ -50,7 +51,7 @@ class InstallmentService:
         else:
             return False
 
-    def delete_installment_by_id(self, db: Session, id: int):
+    def delete_installment_by_id(self, db: Session, id: UUID):
         installment = self.get_installment(db, id)
         if installment:
             db.delete(installment)

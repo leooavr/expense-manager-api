@@ -3,7 +3,12 @@ import uvicorn
 from routers import debt_collector, expense, user, debt, installment, auth
 from database.create_tables import create_all_tables
 
-app = FastAPI()
+app = FastAPI(
+    title="Expense Manager",
+    description="This is an API for manage my expense, debts, installments and more about finances.",
+    version="1.0.0",
+    docs_url="/docs",
+)
 app.include_router(user)
 app.include_router(expense)
 app.include_router(debt_collector)

@@ -1,4 +1,4 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, UUID4
 from typing import Optional
 import datetime
 
@@ -8,7 +8,7 @@ class InstallmentBase(BaseModel):
     value: int
     pay_date: Optional[datetime.date]
     is_paid: bool
-    debt_id: int
+    debt_id: UUID4
 
 
 class InstallmentCreate(InstallmentBase):
@@ -20,7 +20,7 @@ class InstallmentUpdate(InstallmentBase):
 
 
 class Installment(InstallmentBase):
-    id: int
+    id: UUID4
 
     class Config:
         from_attributes = True

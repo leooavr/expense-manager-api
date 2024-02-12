@@ -1,4 +1,4 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, UUID4
 from schemas.expense import Expense
 from schemas.debt import Debt
 
@@ -20,7 +20,7 @@ class UserUpdate(UserCreate):
 
 
 class User(UserBase):
-    id: int
+    id: UUID4
     expenses: list[Expense] = []
     debts: list[Debt] = []
 
