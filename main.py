@@ -9,12 +9,9 @@ app = FastAPI(
     version="1.0.0",
     docs_url="/docs",
 )
-app.include_router(user)
-app.include_router(expense)
-app.include_router(debt_collector)
-app.include_router(debt)
-app.include_router(installment)
-app.include_router(auth)
+routers_list = [debt_collector, expense, user, debt, installment, auth]
+for router in routers_list:
+    app.include_router(router)
 
 
 @app.get("/create_tables")
@@ -25,7 +22,7 @@ def create_tables():
 
 @app.get("/")
 def root():
-    return {"message": "Hi from FastAPI"}
+    return {"message": "Hi, this is my Expense Manager API"}
 
 
 if __name__ == "__main__":
